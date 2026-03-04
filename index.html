@@ -1318,42 +1318,6 @@
         }
 
         /* ═══════════════════════════════════════
-           AMBIENT RED GLOW EFFECT
-           ═══════════════════════════════════════ */
-        .lightning-flash {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0;
-        }
-
-        .lightning-flash.flash {
-            animation: redGlow 2s ease-in-out;
-        }
-
-        .lightning-flash.flash-bright {
-            animation: redGlowBright 2.5s ease-in-out;
-        }
-
-        @keyframes redGlow {
-            0% { opacity: 0; background: radial-gradient(ellipse at 50% 30%, rgba(220, 38, 38, 0.08), transparent 70%); }
-            30% { opacity: 1; background: radial-gradient(ellipse at 50% 30%, rgba(220, 38, 38, 0.12), rgba(139, 0, 0, 0.05) 50%, transparent 80%); }
-            70% { opacity: 0.6; background: radial-gradient(ellipse at 50% 30%, rgba(180, 30, 30, 0.08), transparent 70%); }
-            100% { opacity: 0; background: transparent; }
-        }
-
-        @keyframes redGlowBright {
-            0% { opacity: 0; background: radial-gradient(ellipse at 40% 20%, rgba(220, 38, 38, 0.1), transparent 70%); }
-            20% { opacity: 1; background: radial-gradient(ellipse at 40% 20%, rgba(255, 50, 50, 0.15), rgba(139, 0, 0, 0.08) 40%, transparent 75%); }
-            50% { opacity: 0.8; background: radial-gradient(ellipse at 60% 40%, rgba(200, 40, 40, 0.1), rgba(120, 20, 20, 0.05) 50%, transparent 80%); }
-            100% { opacity: 0; background: transparent; }
-        }
-
-        /* ═══════════════════════════════════════
            RAIN CANVAS
            ═══════════════════════════════════════ */
         .rain-canvas {
@@ -1610,7 +1574,6 @@
     <canvas class="embers-canvas" id="embersCanvas"></canvas>
     <div class="cursor-glow" id="cursorGlow"></div>
     <div class="cursor-dot" id="cursorDot"></div>
-    <div class="lightning-flash" id="lightningFlash"></div>
     <canvas class="rain-canvas" id="rainCanvas"></canvas>
 
     <!-- ═══ NAVIGATION ═══ -->
@@ -2149,33 +2112,6 @@
                 setTimeout(() => ripple.remove(), 600);
             });
         });
-
-        // ═══════════════════════════════════════
-        // AMBIENT RED GLOW EFFECT
-        // ═══════════════════════════════════════
-        const lightningEl = document.getElementById('lightningFlash');
-
-        function triggerRedGlow() {
-            const isBright = Math.random() > 0.5;
-            lightningEl.classList.remove('flash', 'flash-bright');
-            void lightningEl.offsetWidth; // force reflow
-
-            if (isBright) {
-                lightningEl.classList.add('flash-bright');
-            } else {
-                lightningEl.classList.add('flash');
-            }
-
-            setTimeout(() => {
-                lightningEl.classList.remove('flash', 'flash-bright');
-            }, 2500);
-
-            // Random interval 4-10 seconds
-            setTimeout(triggerRedGlow, 4000 + Math.random() * 6000);
-        }
-
-        // First glow after 2-4s
-        setTimeout(triggerRedGlow, 2000 + Math.random() * 2000);
 
         // ═══════════════════════════════════════
         // RAIN EFFECT (CANVAS)
