@@ -1328,18 +1328,56 @@
             height: 100%;
             pointer-events: none;
             z-index: 9998;
-            background: radial-gradient(ellipse at 50% 30%, rgba(220, 38, 38, 0.15), transparent 70%);
             opacity: 0;
         }
 
         .lightning-flash.flash {
-            animation: lightningStrike 0.15s ease-out;
+            animation: lightningStrike 0.2s ease-out;
+        }
+
+        .lightning-flash.flash-bright {
+            animation: lightningBright 0.3s ease-out;
         }
 
         @keyframes lightningStrike {
-            0% { opacity: 1; }
-            50% { opacity: 0.3; }
-            100% { opacity: 0; }
+            0% { opacity: 1; background: radial-gradient(ellipse at 50% 20%, rgba(255, 255, 255, 0.25), rgba(180, 160, 255, 0.08) 40%, transparent 70%); }
+            30% { opacity: 0.6; background: radial-gradient(ellipse at 50% 20%, rgba(220, 38, 38, 0.15), transparent 60%); }
+            100% { opacity: 0; background: transparent; }
+        }
+
+        @keyframes lightningBright {
+            0% { opacity: 1; background: radial-gradient(ellipse at 30% 10%, rgba(255, 255, 255, 0.35), rgba(200, 180, 255, 0.1) 50%, transparent 75%); }
+            15% { opacity: 0.8; }
+            40% { opacity: 0.3; background: radial-gradient(ellipse at 30% 10%, rgba(220, 38, 38, 0.1), transparent 60%); }
+            100% { opacity: 0; background: transparent; }
+        }
+
+        /* Screen shake on thunder */
+        @keyframes thunderShake {
+            0% { transform: translate(0, 0); }
+            15% { transform: translate(-2px, 1px); }
+            30% { transform: translate(2px, -1px); }
+            45% { transform: translate(-1px, 2px); }
+            60% { transform: translate(1px, -1px); }
+            75% { transform: translate(-1px, 0px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        body.thunder-shake {
+            animation: thunderShake 0.3s ease-out;
+        }
+
+        /* ═══════════════════════════════════════
+           RAIN CANVAS
+           ═══════════════════════════════════════ */
+        .rain-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
         }
 
         /* ═══════════════════════════════════════
@@ -1587,6 +1625,7 @@
     <div class="cursor-glow" id="cursorGlow"></div>
     <div class="cursor-dot" id="cursorDot"></div>
     <div class="lightning-flash" id="lightningFlash"></div>
+    <canvas class="rain-canvas" id="rainCanvas"></canvas>
 
     <!-- ═══ NAVIGATION ═══ -->
     <nav class="navbar" id="navbar">
@@ -2126,29 +2165,161 @@
         });
 
         // ═══════════════════════════════════════
-        // LIGHTNING FLASH (RANDOM)
+        // LIGHTNING + THUNDER (ENHANCED)
         // ═══════════════════════════════════════
         const lightningEl = document.getElementById('lightningFlash');
 
+        // Thunder audio context
+        let audioCtx = null;
+        function playThunder(delay) {
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const time = audioCtx.currentTime + delay;
+
+                // Low rumble
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(40 + Math.random() * 30, time);
+                osc.frequency.exponentialRampToValueAtTime(20, time + 1.5);
+                gain.gain.setValueAtTime(0, time);
+                gain.gain.linearRampToValueAtTime(0.08 + Math.random() * 0.06, time + 0.05);
+                gain.gain.exponentialRampToValueAtTime(0.001, time + 1.5 + Math.random());
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(time);
+                osc.stop(time + 2.5);
+
+                // Crackle noise
+                const bufferSize = audioCtx.sampleRate * 0.8;
+                const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                const data = noiseBuffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / bufferSize, 3);
+                }
+                const noise = audioCtx.createBufferSource();
+                noise.buffer = noiseBuffer;
+                const noiseGain = audioCtx.createGain();
+                noiseGain.gain.setValueAtTime(0.06, time);
+                noiseGain.gain.exponentialRampToValueAtTime(0.001, time + 0.8);
+                noise.connect(noiseGain);
+                noiseGain.connect(audioCtx.destination);
+                noise.start(time);
+            } catch(e) { /* audio not supported */ }
+        }
+
         function triggerLightning() {
-            lightningEl.classList.add('flash');
+            const isBright = Math.random() > 0.4;
+            lightningEl.classList.remove('flash', 'flash-bright');
+            void lightningEl.offsetWidth; // force reflow
+
+            if (isBright) {
+                lightningEl.classList.add('flash-bright');
+                // Screen shake on bright flash
+                document.body.classList.add('thunder-shake');
+                setTimeout(() => document.body.classList.remove('thunder-shake'), 300);
+                // Thunder sound after delay (sound travels slower)
+                playThunder(0.3 + Math.random() * 0.8);
+            } else {
+                lightningEl.classList.add('flash');
+            }
+
             setTimeout(() => {
-                lightningEl.classList.remove('flash');
+                lightningEl.classList.remove('flash', 'flash-bright');
                 // Double flash sometimes
                 if (Math.random() > 0.5) {
                     setTimeout(() => {
                         lightningEl.classList.add('flash');
-                        setTimeout(() => lightningEl.classList.remove('flash'), 150);
-                    }, 100);
+                        setTimeout(() => lightningEl.classList.remove('flash', 'flash-bright'), 200);
+                    }, 80 + Math.random() * 120);
                 }
-            }, 150);
+            }, 200);
 
-            // Random interval 8-25 seconds
-            setTimeout(triggerLightning, 8000 + Math.random() * 17000);
+            // Random interval 6-18 seconds
+            setTimeout(triggerLightning, 6000 + Math.random() * 12000);
         }
 
-        // First flash after 4-8s
-        setTimeout(triggerLightning, 4000 + Math.random() * 4000);
+        // First flash after 3-6s
+        setTimeout(triggerLightning, 3000 + Math.random() * 3000);
+
+        // ═══════════════════════════════════════
+        // RAIN EFFECT (CANVAS)
+        // ═══════════════════════════════════════
+        const rainCanvas = document.getElementById('rainCanvas');
+        const rainCtx = rainCanvas.getContext('2d');
+        let raindrops = [];
+
+        function resizeRainCanvas() {
+            rainCanvas.width = window.innerWidth;
+            rainCanvas.height = window.innerHeight;
+        }
+        resizeRainCanvas();
+        window.addEventListener('resize', resizeRainCanvas);
+
+        class Raindrop {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * rainCanvas.width * 1.2 - rainCanvas.width * 0.1;
+                this.y = -10 - Math.random() * rainCanvas.height;
+                this.length = 15 + Math.random() * 25;
+                this.speed = 12 + Math.random() * 10;
+                this.opacity = 0.05 + Math.random() * 0.12;
+                this.wind = -2 - Math.random() * 2; // slight wind angle
+                this.thickness = 0.5 + Math.random() * 0.8;
+            }
+            update() {
+                this.y += this.speed;
+                this.x += this.wind;
+                if (this.y > rainCanvas.height + 20) {
+                    this.reset();
+                }
+            }
+            draw(ctx) {
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y);
+                ctx.lineTo(this.x + this.wind * 1.5, this.y + this.length);
+                ctx.strokeStyle = `rgba(180, 200, 220, ${this.opacity})`;
+                ctx.lineWidth = this.thickness;
+                ctx.lineCap = 'round';
+                ctx.stroke();
+            }
+        }
+
+        // Create raindrops
+        const RAIN_COUNT = 200;
+        for (let i = 0; i < RAIN_COUNT; i++) {
+            const drop = new Raindrop();
+            drop.y = Math.random() * rainCanvas.height; // spread initial
+            raindrops.push(drop);
+        }
+
+        // Rain intensity increases during lightning
+        let rainIntensity = 1;
+
+        function animateRain() {
+            rainCtx.clearRect(0, 0, rainCanvas.width, rainCanvas.height);
+            raindrops.forEach(drop => {
+                drop.speed = (12 + Math.random() * 10) * rainIntensity;
+                drop.update();
+                drop.draw(rainCtx);
+            });
+            requestAnimationFrame(animateRain);
+        }
+        animateRain();
+
+        // Intensify rain during lightning
+        const origTrigger = triggerLightning;
+        const origLightningAdd = lightningEl.classList.add.bind(lightningEl.classList);
+        // Observer to boost rain on flash
+        const flashObserver = new MutationObserver(() => {
+            if (lightningEl.classList.contains('flash') || lightningEl.classList.contains('flash-bright')) {
+                rainIntensity = 1.8;
+                setTimeout(() => { rainIntensity = 1; }, 2000);
+            }
+        });
+        flashObserver.observe(lightningEl, { attributes: true, attributeFilter: ['class'] });
 
         // ═══════════════════════════════════════
         // FLOATING RUNE SYMBOLS
