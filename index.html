@@ -1368,6 +1368,19 @@
         }
 
         /* ═══════════════════════════════════════
+           LIGHTNING BOLT CANVAS
+           ═══════════════════════════════════════ */
+        .lightning-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9997;
+        }
+
+        /* ═══════════════════════════════════════
            RAIN CANVAS
            ═══════════════════════════════════════ */
         .rain-canvas {
@@ -2165,9 +2178,126 @@
         });
 
         // ═══════════════════════════════════════
-        // LIGHTNING + THUNDER (ENHANCED)
+        // LIGHTNING BOLT DRAWING SYSTEM
         // ═══════════════════════════════════════
         const lightningEl = document.getElementById('lightningFlash');
+        const lightningCanvas = document.getElementById('lightningCanvas');
+        const lightningCtx = lightningCanvas.getContext('2d');
+
+        function resizeLightningCanvas() {
+            lightningCanvas.width = window.innerWidth;
+            lightningCanvas.height = window.innerHeight;
+        }
+        resizeLightningCanvas();
+        window.addEventListener('resize', resizeLightningCanvas);
+
+        // Draw a lightning bolt segment with branches
+        function drawLightningBolt(startX, startY, endX, endY, maxOffset, branches, ctx, alpha) {
+            const segments = [];
+            segments.push({ x: startX, y: startY });
+
+            const dx = endX - startX;
+            const dy = endY - startY;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            const steps = Math.floor(dist / 15);
+
+            let prevX = startX;
+            let prevY = startY;
+
+            for (let i = 1; i < steps; i++) {
+                const t = i / steps;
+                const baseX = startX + dx * t;
+                const baseY = startY + dy * t;
+
+                // Add random offset perpendicular to the line
+                const perpX = -dy / dist;
+                const perpY = dx / dist;
+                const offset = (Math.random() - 0.5) * maxOffset;
+
+                const newX = baseX + perpX * offset;
+                const newY = baseY + perpY * offset;
+
+                segments.push({ x: newX, y: newY });
+
+                // Random branches
+                if (branches > 0 && Math.random() > 0.75) {
+                    const branchAngle = (Math.random() - 0.5) * Math.PI * 0.6;
+                    const branchLength = 30 + Math.random() * 60;
+                    const branchEndX = newX + Math.cos(Math.atan2(dy, dx) + branchAngle) * branchLength;
+                    const branchEndY = newY + Math.sin(Math.atan2(dy, dx) + branchAngle) * branchLength;
+                    drawLightningBolt(newX, newY, branchEndX, branchEndY, maxOffset * 0.5, branches - 1, ctx, alpha * 0.6);
+                }
+
+                prevX = newX;
+                prevY = newY;
+            }
+            segments.push({ x: endX, y: endY });
+
+            // Draw main bolt with glow
+            ctx.shadowBlur = 20;
+            ctx.shadowColor = `rgba(180, 160, 255, ${alpha})`;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
+            ctx.lineWidth = 3;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.beginPath();
+            ctx.moveTo(segments[0].x, segments[0].y);
+            for (let i = 1; i < segments.length; i++) {
+                ctx.lineTo(segments[i].x, segments[i].y);
+            }
+            ctx.stroke();
+
+            // Outer glow
+            ctx.shadowBlur = 40;
+            ctx.shadowColor = `rgba(220, 38, 38, ${alpha * 0.4})`;
+            ctx.strokeStyle = `rgba(200, 180, 255, ${alpha * 0.5})`;
+            ctx.lineWidth = 6;
+            ctx.stroke();
+
+            // Core bright line
+            ctx.shadowBlur = 0;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+        }
+
+        // Create and animate a lightning strike
+        function createLightningStrike() {
+            const startX = Math.random() * lightningCanvas.width * 0.6 + lightningCanvas.width * 0.2;
+            const startY = 0;
+            const endX = startX + (Math.random() - 0.5) * 300;
+            const endY = lightningCanvas.height * (0.5 + Math.random() * 0.4);
+
+            let alpha = 1;
+            let frame = 0;
+            const maxFrames = 12;
+
+            function animateBolt() {
+                if (frame >= maxFrames) {
+                    lightningCtx.clearRect(0, 0, lightningCanvas.width, lightningCanvas.height);
+                    return;
+                }
+
+                lightningCtx.clearRect(0, 0, lightningCanvas.width, lightningCanvas.height);
+                alpha = 1 - (frame / maxFrames);
+
+                // Draw multiple bolts for flickering effect
+                if (frame < 3) {
+                    drawLightningBolt(startX, startY, endX, endY, 80, 3, lightningCtx, alpha);
+                    // Secondary bolt sometimes
+                    if (Math.random() > 0.5) {
+                        const offsetX = (Math.random() - 0.5) * 50;
+                        drawLightningBolt(startX + offsetX, startY, endX + offsetX * 1.5, endY * 0.8, 60, 2, lightningCtx, alpha * 0.6);
+                    }
+                } else {
+                    drawLightningBolt(startX, startY, endX, endY, 80, 2, lightningCtx, alpha);
+                }
+
+                frame++;
+                requestAnimationFrame(animateBolt);
+            }
+            animateBolt();
+        }
 
         // Thunder audio context
         let audioCtx = null;
@@ -2213,6 +2343,9 @@
             lightningEl.classList.remove('flash', 'flash-bright');
             void lightningEl.offsetWidth; // force reflow
 
+            // Draw the visible lightning bolt
+            createLightningStrike();
+
             if (isBright) {
                 lightningEl.classList.add('flash-bright');
                 // Screen shake on bright flash
@@ -2220,6 +2353,10 @@
                 setTimeout(() => document.body.classList.remove('thunder-shake'), 300);
                 // Thunder sound after delay (sound travels slower)
                 playThunder(0.3 + Math.random() * 0.8);
+                // Double bolt sometimes
+                if (Math.random() > 0.6) {
+                    setTimeout(() => createLightningStrike(), 50 + Math.random() * 100);
+                }
             } else {
                 lightningEl.classList.add('flash');
             }
@@ -2229,18 +2366,19 @@
                 // Double flash sometimes
                 if (Math.random() > 0.5) {
                     setTimeout(() => {
+                        createLightningStrike();
                         lightningEl.classList.add('flash');
                         setTimeout(() => lightningEl.classList.remove('flash', 'flash-bright'), 200);
                     }, 80 + Math.random() * 120);
                 }
             }, 200);
 
-            // Random interval 6-18 seconds
-            setTimeout(triggerLightning, 6000 + Math.random() * 12000);
+            // Random interval 5-15 seconds
+            setTimeout(triggerLightning, 5000 + Math.random() * 10000);
         }
 
-        // First flash after 3-6s
-        setTimeout(triggerLightning, 3000 + Math.random() * 3000);
+        // First flash after 2-4s
+        setTimeout(triggerLightning, 2000 + Math.random() * 2000);
 
         // ═══════════════════════════════════════
         // RAIN EFFECT (CANVAS)
