@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minh Van | System Engineer & Endpoint Architect</title>
+    <title>Minh Văn | System Engineer & Endpoint Architect</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cinzel+Decorative:wght@400;700;900&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -300,6 +300,64 @@
             position: relative;
             z-index: 3;
             text-align: left;
+        }
+
+        /* ═══════════════════════════════════════
+           PROFILE PHOTO
+           ═══════════════════════════════════════ */
+        .hero-photo {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s forwards;
+        }
+
+        .hero-photo::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            background: linear-gradient(135deg, var(--crimson), var(--gold-dim), var(--violet-soft), var(--crimson));
+            border-radius: 50%;
+            z-index: -1;
+            animation: photoGlow 6s ease-in-out infinite;
+        }
+
+        .hero-photo::after {
+            content: '';
+            position: absolute;
+            inset: -12px;
+            border-radius: 50%;
+            border: 1px solid rgba(212, 168, 67, 0.15);
+            animation: photoRing 8s ease-in-out infinite;
+        }
+
+        .hero-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            border-radius: 50%;
+            border: 3px solid var(--bg-dark);
+            display: block;
+            filter: grayscale(20%) contrast(1.05);
+            transition: var(--transition-med);
+        }
+
+        .hero-photo:hover img {
+            filter: grayscale(0%) contrast(1.1);
+            transform: scale(1.03);
+        }
+
+        @keyframes photoGlow {
+            0%, 100% { opacity: 0.7; transform: rotate(0deg); }
+            50% { opacity: 1; transform: rotate(180deg); }
+        }
+
+        @keyframes photoRing {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.05); opacity: 0.6; }
         }
 
         .hero-ornament {
@@ -1502,6 +1560,12 @@
                 text-align: center;
             }
 
+            .hero-photo {
+                width: 150px;
+                height: 150px;
+                margin: 0 auto 1.5rem;
+            }
+
             .hero-actions {
                 justify-content: center;
             }
@@ -1579,7 +1643,7 @@
     <!-- ═══ NAVIGATION ═══ -->
     <nav class="navbar" id="navbar">
         <div class="nav-inner">
-            <a href="#" class="nav-brand">Minh Van</a>
+            <a href="#" class="nav-brand">Minh Văn</a>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#home" class="active">Home</a></li>
                 <li><a href="#skills">Arsenal</a></li>
@@ -1598,10 +1662,13 @@
     <section class="hero" id="home">
         <div class="hero-split">
             <div class="hero-content">
+                <div class="hero-photo">
+                    <img src="profile.jpg" alt="Minh Văn" />
+                </div>
                 <div class="hero-ornament">
                     <span></span> Forged in the Digital Abyss <span></span>
                 </div>
-                <h1 class="hero-name glitch" data-text="Minh Van">Minh Van</h1>
+                <h1 class="hero-name glitch" data-text="Minh Văn">Minh Văn</h1>
                 <p class="hero-title">System Engineer &nbsp;|&nbsp; Endpoint Architect</p>
                 <p class="hero-tagline" id="heroTagline"></p>
                 <div class="hero-actions">
@@ -1853,7 +1920,7 @@
     <footer class="footer">
         <div class="footer-ornament">◆</div>
         <div class="footer-line"></div>
-        <p>&copy; 2026 Minh Van — Forged in the Digital Abyss</p>
+        <p>&copy; 2026 Minh Văn — Forged in the Digital Abyss</p>
     </footer>
 
     <!-- ═══ SCRIPTS ═══ -->
