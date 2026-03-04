@@ -254,10 +254,21 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
             padding: 6rem 2rem 4rem;
             z-index: 2;
             overflow: hidden;
+        }
+
+        .hero-split {
+            position: relative;
+            z-index: 3;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1300px;
+            width: 100%;
+            padding: 0 2rem;
         }
 
         /* Red backlight glow */
@@ -288,7 +299,7 @@
         .hero-content {
             position: relative;
             z-index: 3;
-            max-width: 800px;
+            text-align: left;
         }
 
         .hero-ornament {
@@ -366,10 +377,133 @@
 
         .hero-actions {
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             gap: 1.5rem;
             opacity: 0;
             animation: fadeUp 1s var(--transition-slow) 1.3s forwards;
+        }
+
+        /* ═══════════════════════════════════════
+           HERO RIGHT - ABOUT PANEL
+           ═══════════════════════════════════════ */
+        .hero-about {
+            position: relative;
+            z-index: 3;
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-dark);
+            padding: 2.5rem;
+            opacity: 0;
+            animation: fadeUp 1.2s var(--transition-slow) 0.8s forwards;
+        }
+
+        .hero-about::before,
+        .hero-about::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-color: var(--gold-dim);
+            opacity: 0.3;
+            transition: var(--transition-med);
+        }
+
+        .hero-about::before {
+            top: -1px;
+            left: -1px;
+            border-top: 1px solid;
+            border-left: 1px solid;
+        }
+
+        .hero-about::after {
+            bottom: -1px;
+            right: -1px;
+            border-bottom: 1px solid;
+            border-right: 1px solid;
+        }
+
+        .hero-about:hover::before,
+        .hero-about:hover::after {
+            border-color: var(--crimson);
+            width: 32px;
+            height: 32px;
+        }
+
+        .hero-about-label {
+            font-family: var(--font-heading);
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: var(--crimson);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-shadow: 0 0 15px var(--crimson-glow);
+        }
+
+        .hero-about-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--border-metallic), transparent);
+        }
+
+        .hero-about-text {
+            font-family: var(--font-accent);
+            font-size: 1.1rem;
+            color: var(--text);
+            line-height: 1.9;
+            margin-bottom: 2rem;
+        }
+
+        .hero-about-text .about-highlight {
+            color: var(--crimson-light);
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        .hero-about-text .about-gold {
+            color: var(--gold);
+        }
+
+        .hero-about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+        }
+
+        .hero-about-stat {
+            padding: 1rem;
+            border: 1px solid var(--border-dark);
+            text-align: center;
+            transition: var(--transition-fast);
+        }
+
+        .hero-about-stat:hover {
+            border-color: rgba(220, 38, 38, 0.2);
+            background: rgba(220, 38, 38, 0.02);
+        }
+
+        .hero-about-stat-number {
+            font-family: var(--font-decorative);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--crimson-light);
+            line-height: 1;
+            margin-bottom: 0.35rem;
+            text-shadow: 0 0 20px var(--crimson-glow);
+        }
+
+        .hero-about-stat-label {
+            font-family: var(--font-heading);
+            font-size: 0.55rem;
+            font-weight: 500;
+            color: var(--text-dim);
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         /* Buttons */
@@ -1370,6 +1504,20 @@
             .nav-menu.active { display: flex; }
             .nav-toggle { display: block; }
 
+            .hero-split {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+                text-align: center;
+            }
+
+            .hero-content {
+                text-align: center;
+            }
+
+            .hero-actions {
+                justify-content: center;
+            }
+
             .hero-name {
                 font-size: 2.5rem;
             }
@@ -1386,6 +1534,10 @@
             .hero-actions {
                 flex-direction: column;
                 align-items: center;
+            }
+
+            .hero-about-stats {
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .section { padding: 4rem 1.5rem; }
@@ -1418,9 +1570,9 @@
 
             .hero-ornament span { width: 20px; }
 
-            .about-stats {
-                flex-direction: column;
-                gap: 1.5rem;
+            .hero-about-stats {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.75rem;
             }
 
             .nav-inner { padding: 0 1.25rem; }
@@ -1445,6 +1597,7 @@
                 <li><a href="#skills">Arsenal</a></li>
                 <li><a href="#projects">Battle Logs</a></li>
                 <li><a href="#about">About</a></li>
+                <!-- About is now in hero section -->
                 <li><a href="#contact">Summon</a></li>
             </ul>
             <button class="nav-toggle" id="navToggle" aria-label="Menu">
@@ -1455,20 +1608,50 @@
 
     <!-- ═══ HERO ═══ -->
     <section class="hero" id="home">
-        <div class="hero-content">
-            <div class="hero-ornament">
-                <span></span> Forged in the Digital Abyss <span></span>
+        <div class="hero-split">
+            <div class="hero-content">
+                <div class="hero-ornament">
+                    <span></span> Forged in the Digital Abyss <span></span>
+                </div>
+                <h1 class="hero-name glitch" data-text="Minh Van">Minh Van</h1>
+                <p class="hero-title">System Engineer &nbsp;|&nbsp; Endpoint Architect</p>
+                <p class="hero-tagline" id="heroTagline"></p>
+                <div class="hero-actions">
+                    <a href="#projects" class="btn btn-crimson">
+                        <i class="fas fa-scroll"></i> View Projects
+                    </a>
+                    <a href="#" class="btn btn-ghost">
+                        <i class="fas fa-download"></i> Download CV
+                    </a>
+                </div>
             </div>
-            <h1 class="hero-name glitch" data-text="Minh Van">Minh Van</h1>
-            <p class="hero-title">System Engineer &nbsp;|&nbsp; Endpoint Architect</p>
-            <p class="hero-tagline" id="heroTagline"></p>
-            <div class="hero-actions">
-                <a href="#projects" class="btn btn-crimson">
-                    <i class="fas fa-scroll"></i> View Projects
-                </a>
-                <a href="#" class="btn btn-ghost">
-                    <i class="fas fa-download"></i> Download CV
-                </a>
+
+            <div class="hero-about" id="about">
+                <div class="hero-about-label">The Architect</div>
+                <div class="hero-about-text">
+                    An <span class="about-highlight">IT Executive</span> forged in the crucible of enterprise infrastructure — 
+                    orchestrating secure endpoints, resilient networks, and automated deployments across 
+                    <span class="about-gold">Vietnam and Cambodia</span>. 
+                    Every system I touch becomes <span class="about-highlight">hardened, efficient, and battle-ready</span>.
+                </div>
+                <div class="hero-about-stats">
+                    <div class="hero-about-stat">
+                        <div class="hero-about-stat-number">6+</div>
+                        <div class="hero-about-stat-label">Projects Deployed</div>
+                    </div>
+                    <div class="hero-about-stat">
+                        <div class="hero-about-stat-number">2</div>
+                        <div class="hero-about-stat-label">Countries</div>
+                    </div>
+                    <div class="hero-about-stat">
+                        <div class="hero-about-stat-number">20+</div>
+                        <div class="hero-about-stat-label">Sites Managed</div>
+                    </div>
+                    <div class="hero-about-stat">
+                        <div class="hero-about-stat-number">2</div>
+                        <div class="hero-about-stat-label">Certifications</div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="scroll-indicator">
@@ -1620,49 +1803,6 @@
                         <span class="project-tag">Firewall Rules</span>
                         <span class="project-tag">SSL Inspection</span>
                         <span class="project-tag">Network Security</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="section-divider"></div>
-
-    <!-- ═══ ABOUT ═══ -->
-    <section class="section about-section" id="about">
-        <div class="section-inner">
-            <div class="section-header reveal">
-                <span class="section-label">The Architect</span>
-                <h2 class="section-title">About Me</h2>
-            </div>
-
-            <div class="about-content reveal">
-                <div class="about-text">
-                    An <span class="about-highlight">IT Executive</span> forged in the crucible of enterprise infrastructure — 
-                    orchestrating secure endpoints, resilient networks, and automated deployments across 
-                    <span class="about-gold">Vietnam and Cambodia</span>. 
-                    From configuring FortiGate firewalls and deploying Intune at scale, 
-                    to engineering SCCM task sequences and migrating terabytes to the cloud — 
-                    every system I touch becomes <span class="about-highlight">hardened, efficient, and battle-ready</span>. 
-                    I don't just manage infrastructure — I <em>architect dominion</em> over it.
-                </div>
-
-                <div class="about-stats">
-                    <div class="about-stat">
-                        <div class="about-stat-number">6+</div>
-                        <div class="about-stat-label">Projects Deployed</div>
-                    </div>
-                    <div class="about-stat">
-                        <div class="about-stat-number">2</div>
-                        <div class="about-stat-label">Countries</div>
-                    </div>
-                    <div class="about-stat">
-                        <div class="about-stat-number">20+</div>
-                        <div class="about-stat-label">Sites Managed</div>
-                    </div>
-                    <div class="about-stat">
-                        <div class="about-stat-number">2</div>
-                        <div class="about-stat-label">Certifications</div>
                     </div>
                 </div>
             </div>
@@ -2053,10 +2193,10 @@
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             // Parallax on hero content
-            const heroContent = document.querySelector('.hero-content');
-            if (heroContent) {
-                heroContent.style.transform = `translateY(${scrolled * 0.15}px)`;
-                heroContent.style.opacity = 1 - (scrolled / 800);
+            const heroSplit = document.querySelector('.hero-split');
+            if (heroSplit) {
+                heroSplit.style.transform = `translateY(${scrolled * 0.1}px)`;
+                heroSplit.style.opacity = 1 - (scrolled / 900);
             }
 
             // Parallax on section dividers
@@ -2070,7 +2210,7 @@
         // ═══════════════════════════════════════
         // SMOOTH COUNTER FOR STATS
         // ═══════════════════════════════════════
-        const statNumbers = document.querySelectorAll('.about-stat-number');
+        const statNumbers = document.querySelectorAll('.hero-about-stat-number');
         const statObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
