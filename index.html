@@ -971,6 +971,197 @@
         }
 
         /* ═══════════════════════════════════════
+           WORK EXPERIENCE SECTION
+           ═══════════════════════════════════════ */
+        .experience-timeline {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .experience-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, 
+                var(--crimson) 0%, 
+                rgba(220, 38, 38, 0.3) 50%, 
+                var(--crimson) 100%);
+            z-index: 1;
+        }
+
+        .experience-item {
+            margin-bottom: 3.5rem;
+            position: relative;
+            opacity: 0;
+            animation: fadeUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        .experience-item:nth-child(1) { animation-delay: 0.1s; }
+        .experience-item:nth-child(2) { animation-delay: 0.3s; }
+        .experience-item:nth-child(3) { animation-delay: 0.5s; }
+        .experience-item:nth-child(4) { animation-delay: 0.7s; }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 16px;
+            background: var(--crimson);
+            border: 3px solid var(--bg-dark);
+            border-radius: 50%;
+            top: 0;
+            z-index: 3;
+            box-shadow: 0 0 20px var(--crimson-glow);
+        }
+
+        .experience-item:hover::before {
+            width: 20px;
+            height: 20px;
+            top: -2px;
+            box-shadow: 0 0 30px var(--crimson-glow);
+        }
+
+        .experience-content {
+            width: calc(50% - 40px);
+            background: var(--bg-card);
+            border: 1px solid var(--border-dark);
+            padding: 2rem;
+            position: relative;
+            transition: var(--transition-med);
+        }
+
+        .experience-item:nth-child(odd) .experience-content {
+            margin-left: 0;
+            margin-right: auto;
+            text-align: right;
+        }
+
+        .experience-item:nth-child(even) .experience-content {
+            margin-left: auto;
+            margin-right: 0;
+            text-align: left;
+        }
+
+        .experience-content::before,
+        .experience-content::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-color: var(--border-metallic);
+            transition: var(--transition-med);
+        }
+
+        .experience-item:nth-child(odd) .experience-content::before {
+            top: -1px;
+            left: -1px;
+            border-top: 1px solid;
+            border-left: 1px solid;
+        }
+
+        .experience-item:nth-child(odd) .experience-content::after {
+            bottom: -1px;
+            right: -1px;
+            border-bottom: 1px solid;
+            border-right: 1px solid;
+        }
+
+        .experience-item:nth-child(even) .experience-content::before {
+            top: -1px;
+            right: -1px;
+            border-top: 1px solid;
+            border-right: 1px solid;
+        }
+
+        .experience-item:nth-child(even) .experience-content::after {
+            bottom: -1px;
+            left: -1px;
+            border-bottom: 1px solid;
+            border-left: 1px solid;
+        }
+
+        .experience-content:hover {
+            border-color: rgba(220, 38, 38, 0.3);
+            background: var(--bg-card-hover);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 30px var(--crimson-glow);
+            transform: translateY(-4px);
+        }
+
+        .experience-content:hover::before,
+        .experience-content:hover::after {
+            border-color: var(--crimson);
+        }
+
+        .experience-date {
+            font-family: var(--font-heading);
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--crimson-light);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+            text-shadow: 0 0 10px var(--crimson-glow);
+        }
+
+        .experience-title {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-bright);
+            letter-spacing: 1px;
+            margin-bottom: 0.25rem;
+            text-transform: uppercase;
+        }
+
+        .experience-company {
+            font-family: var(--font-accent);
+            font-size: 1rem;
+            color: var(--gold);
+            margin-bottom: 0.75rem;
+            font-style: italic;
+        }
+
+        .experience-description {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 1.25rem;
+        }
+
+        .experience-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            justify-content: flex-start;
+        }
+
+        .experience-item:nth-child(odd) .experience-tags {
+            justify-content: flex-end;
+        }
+
+        .experience-tag {
+            font-size: 0.72rem;
+            font-weight: 500;
+            color: var(--text-dim);
+            padding: 0.3rem 0.65rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-dark);
+            letter-spacing: 0.5px;
+            transition: var(--transition-fast);
+        }
+
+        .experience-content:hover .experience-tag {
+            border-color: rgba(220, 38, 38, 0.15);
+            color: var(--text-muted);
+        }
+
+        /* ═══════════════════════════════════════
            ABOUT SECTION
            ═══════════════════════════════════════ */
         .about-section {
@@ -1531,6 +1722,15 @@
             .skills-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+
+            .experience-content {
+                padding: 1.75rem;
+                font-size: 0.92rem;
+            }
+
+            .experience-title {
+                font-size: 1rem;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1601,6 +1801,44 @@
 
             .projects-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .experience-timeline::before {
+                left: 0;
+                transform: none;
+                width: 2px;
+            }
+
+            .experience-content {
+                width: 100% !important;
+                margin-left: 30px !important;
+                margin-right: 0 !important;
+                text-align: left !important;
+            }
+
+            .experience-item::before {
+                left: -8px;
+                transform: none;
+            }
+
+            .experience-item:nth-child(odd) .experience-content::before,
+            .experience-item:nth-child(even) .experience-content::before {
+                top: -1px;
+                left: -1px;
+                border-top: 1px solid;
+                border-left: 1px solid;
+            }
+
+            .experience-item:nth-child(odd) .experience-content::after,
+            .experience-item:nth-child(even) .experience-content::after {
+                bottom: -1px;
+                right: -1px;
+                border-bottom: 1px solid;
+                border-right: 1px solid;
+            }
+
+            .experience-tags {
+                justify-content: flex-start !important;
             }
 
             .about-stats {
@@ -1797,65 +2035,72 @@
     <section class="section" id="experience">
         <div class="section-inner">
             <div class="section-header reveal">
-                <span class="section-label">Battle Logs</span>
-                <h2 class="section-title">Campaigns Waged</h2>
-                <p class="section-subtitle">IT Infrastructure & Operations — Magna Management Asia (06/2024 – 02/2026)</p>
+                <span class="section-label">Career Journey</span>
+                <h2 class="section-title">Work Experience</h2>
+                <p class="section-subtitle">From junior roles to senior infrastructure challenges — a progression through IT operations and systems management.</p>
             </div>
 
-            <div class="projects-grid">
-                <div class="project-card reveal reveal-delay-1">
-                    <div class="card-glow"></div>
-                    <div class="project-number">I</div>
-                    <div class="project-status">Daily Operations</div>
-                    <h3>Technical Support & Infrastructure</h3>
-                    <p>Provided technical support for store users, office staff, warehouse teams, and VIP management. Troubleshot internet connectivity, hardware failures, and application issues. Managed IT infrastructure including firewall, switches, access points, and VoIP systems.</p>
-                    <div class="project-tags">
-                        <span class="project-tag">Technical Support</span>
-                        <span class="project-tag">Firewall</span>
-                        <span class="project-tag">Switches</span>
-                        <span class="project-tag">VoIP</span>
+            <div class="experience-timeline">
+                <div class="experience-item">
+                    <div class="experience-content reveal">
+                        <div class="experience-date">06/2024 – 02/2026</div>
+                        <div class="experience-title">IT Infrastructure & Operations Specialist</div>
+                        <div class="experience-company">Magna Management Asia</div>
+                        <div class="experience-description">Led technical infrastructure across Vietnam and Cambodia operations. Managed network deployment, device management, and IT procurement for retail and office environments. Supported store openings, system upgrades, and enterprise-scale IT initiatives.</div>
+                        <div class="experience-tags">
+                            <span class="experience-tag">SD-WAN</span>
+                            <span class="experience-tag">Intune</span>
+                            <span class="experience-tag">SCCM</span>
+                            <span class="experience-tag">Network Ops</span>
+                            <span class="experience-tag">IT Procurement</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="project-card reveal reveal-delay-2">
-                    <div class="card-glow"></div>
-                    <div class="project-number">II</div>
-                    <div class="project-status">Projects</div>
-                    <h3>SD-WAN, Intune & SCCM Deployment</h3>
-                    <p>Rolled out SD-WAN across store network. Deployed Microsoft Intune solutions for device management. Implemented TeamViewer Tensor for remote support. Packaged and deployed applications via Intune & SCCM. Supported SAP upgrade from version 7.30 to 8.00.</p>
-                    <div class="project-tags">
-                        <span class="project-tag">SD-WAN</span>
-                        <span class="project-tag">Intune</span>
-                        <span class="project-tag">SCCM</span>
-                        <span class="project-tag">SAP</span>
+                <div class="experience-item">
+                    <div class="experience-content reveal">
+                        <div class="experience-date">Key Responsibilities</div>
+                        <div class="experience-title">Daily Operations</div>
+                        <div class="experience-company">Technical Support & Troubleshooting</div>
+                        <div class="experience-description">Provided comprehensive technical support for store users, office staff, warehouse teams, and management. Managed firewall, switches, access points, VoIP systems. Troubleshot connectivity issues, hardware failures, and application problems.</div>
+                        <div class="experience-tags">
+                            <span class="experience-tag">Technical Support</span>
+                            <span class="experience-tag">Firewall Management</span>
+                            <span class="experience-tag">Network Switching</span>
+                            <span class="experience-tag">VoIP Systems</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="project-card reveal reveal-delay-1">
-                    <div class="card-glow"></div>
-                    <div class="project-number">III</div>
-                    <div class="project-status">Store Ops</div>
-                    <h3>Store Opening & Sales Events</h3>
-                    <p>Prepared IT infrastructure for new store openings and renovations. Installed and configured POS systems, network equipment, and devices. Provided on-site technical support during store launch. Supported large sales events (Bazaar, promotions, etc.).</p>
-                    <div class="project-tags">
-                        <span class="project-tag">POS Systems</span>
-                        <span class="project-tag">Network Setup</span>
-                        <span class="project-tag">Store Launch</span>
-                        <span class="project-tag">O2O</span>
+                <div class="experience-item">
+                    <div class="experience-content reveal">
+                        <div class="experience-date">Major Projects</div>
+                        <div class="experience-title">Infrastructure Deployment</div>
+                        <div class="experience-company">SD-WAN & Device Management</div>
+                        <div class="experience-description">Rolled out SD-WAN solutions across store networks. Deployed Microsoft Intune for enterprise device management. Implemented TeamViewer Tensor for remote support. Packaged and deployed applications via Intune & SCCM. Coordinated SAP version upgrade from 7.30 to 8.00.</div>
+                        <div class="experience-tags">
+                            <span class="experience-tag">SD-WAN Deployment</span>
+                            <span class="experience-tag">Microsoft Intune</span>
+                            <span class="experience-tag">SCCM</span>
+                            <span class="experience-tag">SAP Administration</span>
+                            <span class="experience-tag">TeamViewer</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="project-card reveal reveal-delay-2">
-                    <div class="card-glow"></div>
-                    <div class="project-number">IV</div>
-                    <div class="project-status">Management</div>
-                    <h3>Procurement & Vendor Coordination</h3>
-                    <p>Managed IT purchasing processes and vendor coordination. Renewed internet services, printers, SIM cards, and other subscriptions. Collected and consolidated invoices for Vietnam & Cambodia operations. Coordinated with ASEAN IT teams on cross-country initiatives.</p>
-                    <div class="project-tags">
-                        <span class="project-tag">Procurement</span>
-                        <span class="project-tag">Vendor Mgmt</span>
-                        <span class="project-tag">Budget</span>
-                        <span class="project-tag">ASEAN</span>
+                <div class="experience-item">
+                    <div class="experience-content reveal">
+                        <div class="experience-date">Strategic Initiatives</div>
+                        <div class="experience-title">Store Operations & Vendor Management</div>
+                        <div class="experience-company">Business Support Services</div>
+                        <div class="experience-description">Prepared IT infrastructure for new store openings and renovations. Installed and configured POS systems and networking equipment. Provided on-site support during store launches and major sales events. Managed IT procurement, vendor coordination, and service renewals across multiple countries.</div>
+                        <div class="experience-tags">
+                            <span class="experience-tag">POS Systems</span>
+                            <span class="experience-tag">Store Launch</span>
+                            <span class="experience-tag">Vendor Management</span>
+                            <span class="experience-tag">Procurement</span>
+                            <span class="experience-tag">Regional Coordination</span>
+                        </div>
                     </div>
                 </div>
             </div>
