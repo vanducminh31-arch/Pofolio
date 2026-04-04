@@ -3022,8 +3022,17 @@
 
         document.addEventListener('keydown', (e) => {
             const currentOverlay = document.getElementById('pdfModalOverlay');
-            if (e.key === 'Escape' && currentOverlay && currentOverlay.classList.contains('active')) {
-                closePdfModal();
+            const isModalActive = currentOverlay && currentOverlay.classList.contains('active');
+
+            // Close modal with Esc, Backspace, X, or Q
+            if (isModalActive) {
+                if (e.key === 'Escape' || e.key === 'Backspace' || e.key.toLowerCase() === 'x' || e.key.toLowerCase() === 'q') {
+                    closePdfModal();
+                }
+            } 
+            // Scroll to top with Home key when modal is not active
+            else if (e.key === 'Home') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         });
     </script>
