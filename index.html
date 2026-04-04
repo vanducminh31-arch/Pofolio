@@ -1567,9 +1567,10 @@
         }
 
         /* ═══════════════════════════════════════
-           RAIN CANVAS
+           ATMOSPHERIC LAYERS (RAIN, EMBERS, CURSOR)
            ═══════════════════════════════════════ */
-        .rain-canvas {
+        .rain-canvas,
+        .embers-canvas {
             position: fixed;
             top: 0;
             left: 0;
@@ -1577,6 +1578,41 @@
             height: 100%;
             pointer-events: none;
             z-index: 1;
+        }
+
+        .cursor-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(220, 38, 38, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 2;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .cursor-glow.active { opacity: 1; }
+
+        .cursor-dot {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10002;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 15px var(--gold);
+            transition: width 0.3s, height 0.3s, background 0.3s;
+        }
+
+        .cursor-dot.hovering {
+            width: 40px;
+            height: 40px;
+            background: rgba(220, 38, 38, 0.2);
+            border: 1px solid var(--crimson);
         }
 
         /* ═══════════════════════════════════════
@@ -1610,6 +1646,8 @@
         .skill-card,
         .project-card {
             transform-style: preserve-3d;
+            z-index: 5;
+            position: relative;
         }
 
         /* Card inner glow sweep on hover */
@@ -2928,6 +2966,7 @@
         const pdfClose = document.getElementById('pdfModalClose');
 
         function openPdfModal(fileUrl, title) {
+            console.log("Opening Modal for:", fileUrl);
             if (!pdfOverlay || !pdfTitle) return;
             
             pdfTitle.textContent = title;
