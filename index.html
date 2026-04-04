@@ -2011,6 +2011,8 @@
             font-size: 1.2rem;
             transition: all 0.3s ease;
             border-radius: 4px;
+            z-index: 20; /* Ensure it stays above corners */
+            position: relative;
         }
 
         .pdf-modal-close:hover {
@@ -2467,14 +2469,14 @@
     </section>
 
     <!-- ═══ PDF MODAL ═══ -->
-    <div class="pdf-modal-overlay" id="pdfModalOverlay">
+    <div class="pdf-modal-overlay" id="pdfModalOverlay" onclick="if(event.target === this) closePdfModal()">
         <div class="pdf-modal">
             <div class="pdf-modal-header">
                 <div class="pdf-modal-title">
                     <i class="fas fa-certificate"></i>
                     <span id="pdfModalTitle">Certificate</span>
                 </div>
-                <button class="pdf-modal-close" id="pdfModalClose" aria-label="Close">
+                <button class="pdf-modal-close" id="pdfModalClose" aria-label="Close" onclick="closePdfModal()">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
@@ -3021,14 +3023,13 @@
             }, 500);
         }
 
-        const pdfClose = document.getElementById('pdfModalClose');
-
-        if (pdfClose) pdfClose.addEventListener('click', closePdfModal);
-
-        const pdfOverlayForClick = document.getElementById('pdfModalOverlay');
-        if (pdfOverlayForClick) {
-            pdfOverlayForClick.addEventListener('click', (e) => {
-                if (e.target === pdfOverlayForClick) closePdfModal();
+        // Modal cleanup
+        if (typeof pdfClose !== 'undefined' && pdfClose) pdfClose.addEventListener('click', closePdfModal);
+        
+        const overlayNode = document.getElementById('pdfModalOverlay');
+        if (overlayNode) {
+            overlayNode.addEventListener('click', (e) => {
+                if (e.target === overlayNode) closePdfModal();
             });
         }
 
