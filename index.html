@@ -2958,15 +2958,16 @@
         // ═══════════════════════════════════════
         // UNIVERSAL LIGHTBOX / MODAL VIEWER
         // ═══════════════════════════════════════
-        const pdfOverlay = document.getElementById('pdfModalOverlay');
-        const pdfFrame = document.getElementById('pdfModalFrame');
-        const pdfImage = document.getElementById('pdfModalImage');
-        const pdfBody = document.getElementById('pdfModalBody');
-        const pdfTitle = document.getElementById('pdfModalTitle');
-        const pdfClose = document.getElementById('pdfModalClose');
 
         function openPdfModal(fileUrl, title) {
             console.log("Opening Modal for:", fileUrl);
+            
+            const pdfOverlay = document.getElementById('pdfModalOverlay');
+            const pdfFrame = document.getElementById('pdfModalFrame');
+            const pdfImage = document.getElementById('pdfModalImage');
+            const pdfBody = document.getElementById('pdfModalBody');
+            const pdfTitle = document.getElementById('pdfModalTitle');
+
             if (!pdfOverlay || !pdfTitle) return;
             
             pdfTitle.textContent = title;
@@ -2976,12 +2977,16 @@
             
             if (isPdf) {
                 if (pdfFrame) pdfFrame.src = fileUrl;
-                pdfBody.classList.remove('show-img');
-                pdfBody.classList.add('show-pdf');
+                if (pdfBody) {
+                    pdfBody.classList.remove('show-img');
+                    pdfBody.classList.add('show-pdf');
+                }
             } else {
                 if (pdfImage) pdfImage.src = fileUrl;
-                pdfBody.classList.remove('show-pdf');
-                pdfBody.classList.add('show-img');
+                if (pdfBody) {
+                    pdfBody.classList.remove('show-pdf');
+                    pdfBody.classList.add('show-img');
+                }
             }
             
             pdfOverlay.classList.add('active');
@@ -2989,6 +2994,10 @@
         }
 
         function closePdfModal() {
+            const pdfOverlay = document.getElementById('pdfModalOverlay');
+            const pdfFrame = document.getElementById('pdfModalFrame');
+            const pdfImage = document.getElementById('pdfModalImage');
+
             if (!pdfOverlay) return;
             pdfOverlay.classList.remove('active');
             document.body.style.overflow = '';
@@ -3000,6 +3009,9 @@
             }, 500);
         }
 
+        const pdfOverlay = document.getElementById('pdfModalOverlay');
+        const pdfClose = document.getElementById('pdfModalClose');
+
         if (pdfClose) pdfClose.addEventListener('click', closePdfModal);
 
         if (pdfOverlay) {
@@ -3009,7 +3021,8 @@
         }
 
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && pdfOverlay && pdfOverlay.classList.contains('active')) {
+            const currentOverlay = document.getElementById('pdfModalOverlay');
+            if (e.key === 'Escape' && currentOverlay && currentOverlay.classList.contains('active')) {
                 closePdfModal();
             }
         });
