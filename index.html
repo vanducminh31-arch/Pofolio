@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Văn Minh | IT Infrastructure & Operations</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cinzel+Decorative:wght@400;700;900&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cinzel+Decorative:wght@400;700;900&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         /* ═══════════════════════════════════════
@@ -52,7 +55,9 @@
         /* ═══════════════════════════════════════
            RESET & BASE
            ═══════════════════════════════════════ */
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -64,9 +69,18 @@
             scrollbar-color: var(--crimson-deep) var(--bg-dark);
         }
 
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg-dark); }
-        ::-webkit-scrollbar-thumb { background: var(--crimson-deep); border-radius: 3px; }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--crimson-deep);
+            border-radius: 3px;
+        }
 
         body {
             font-family: var(--font-body);
@@ -119,10 +133,21 @@
         }
 
         @keyframes fogDrift {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(2%, -1%) rotate(0.5deg); }
-            66% { transform: translate(-1%, 2%) rotate(-0.3deg); }
-            100% { transform: translate(1%, -1%) rotate(0.2deg); }
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            33% {
+                transform: translate(2%, -1%) rotate(0.5deg);
+            }
+
+            66% {
+                transform: translate(-1%, 2%) rotate(-0.3deg);
+            }
+
+            100% {
+                transform: translate(1%, -1%) rotate(0.2deg);
+            }
         }
 
         /* Noise texture overlay */
@@ -351,13 +376,31 @@
         }
 
         @keyframes photoGlow {
-            0%, 100% { opacity: 0.7; transform: rotate(0deg); }
-            50% { opacity: 1; transform: rotate(180deg); }
+
+            0%,
+            100% {
+                opacity: 0.7;
+                transform: rotate(0deg);
+            }
+
+            50% {
+                opacity: 1;
+                transform: rotate(180deg);
+            }
         }
 
         @keyframes photoRing {
-            0%, 100% { transform: scale(1); opacity: 0.3; }
-            50% { transform: scale(1.05); opacity: 0.6; }
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 0.6;
+            }
         }
 
         .hero-ornament {
@@ -643,8 +686,13 @@
         }
 
         @keyframes scrollLine {
-            0% { top: -40%; }
-            100% { top: 110%; }
+            0% {
+                top: -40%;
+            }
+
+            100% {
+                top: 110%;
+            }
         }
 
         .scroll-indicator span {
@@ -665,11 +713,11 @@
             max-width: 1300px;
             margin: 0 auto;
             background: linear-gradient(90deg,
-                transparent,
-                var(--border-metallic) 20%,
-                var(--crimson-deep) 50%,
-                var(--border-metallic) 80%,
-                transparent);
+                    transparent,
+                    var(--border-metallic) 20%,
+                    var(--crimson-deep) 50%,
+                    var(--border-metallic) 80%,
+                    transparent);
             opacity: 0.5;
         }
 
@@ -986,10 +1034,10 @@
             transform: translateX(-50%);
             width: 2px;
             height: 100%;
-            background: linear-gradient(to bottom, 
-                var(--crimson) 0%, 
-                rgba(220, 38, 38, 0.3) 50%, 
-                var(--crimson) 100%);
+            background: linear-gradient(to bottom,
+                    var(--crimson) 0%,
+                    rgba(220, 38, 38, 0.3) 50%,
+                    var(--crimson) 100%);
             z-index: 1;
         }
 
@@ -1000,10 +1048,21 @@
             animation: fadeUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
         }
 
-        .experience-item:nth-child(1) { animation-delay: 0.1s; }
-        .experience-item:nth-child(2) { animation-delay: 0.3s; }
-        .experience-item:nth-child(3) { animation-delay: 0.5s; }
-        .experience-item:nth-child(4) { animation-delay: 0.7s; }
+        .experience-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .experience-item:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .experience-item:nth-child(3) {
+            animation-delay: 0.5s;
+        }
+
+        .experience-item:nth-child(4) {
+            animation-delay: 0.7s;
+        }
 
         .experience-item::before {
             content: '';
@@ -1416,6 +1475,7 @@
                 opacity: 0;
                 transform: translateY(25px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -1426,7 +1486,7 @@
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .reveal.visible {
@@ -1434,10 +1494,21 @@
             transform: translateY(0);
         }
 
-        .reveal-delay-1 { transition-delay: 0.1s; }
-        .reveal-delay-2 { transition-delay: 0.2s; }
-        .reveal-delay-3 { transition-delay: 0.3s; }
-        .reveal-delay-4 { transition-delay: 0.4s; }
+        .reveal-delay-1 {
+            transition-delay: 0.1s;
+        }
+
+        .reveal-delay-2 {
+            transition-delay: 0.2s;
+        }
+
+        .reveal-delay-3 {
+            transition-delay: 0.3s;
+        }
+
+        .reveal-delay-4 {
+            transition-delay: 0.4s;
+        }
 
         /* ═══════════════════════════════════════
            FLOATING EMBERS / PARTICLES
@@ -1531,21 +1602,67 @@
         }
 
         @keyframes glitch-1 {
-            0% { clip-path: inset(40% 0 61% 0); transform: translate(-2px, -1px); }
-            20% { clip-path: inset(92% 0 1% 0); transform: translate(1px, 2px); }
-            40% { clip-path: inset(43% 0 1% 0); transform: translate(-1px, 3px); }
-            60% { clip-path: inset(25% 0 58% 0); transform: translate(3px, -1px); }
-            80% { clip-path: inset(54% 0 7% 0); transform: translate(-3px, 2px); }
-            100% { clip-path: inset(58% 0 43% 0); transform: translate(0); }
+            0% {
+                clip-path: inset(40% 0 61% 0);
+                transform: translate(-2px, -1px);
+            }
+
+            20% {
+                clip-path: inset(92% 0 1% 0);
+                transform: translate(1px, 2px);
+            }
+
+            40% {
+                clip-path: inset(43% 0 1% 0);
+                transform: translate(-1px, 3px);
+            }
+
+            60% {
+                clip-path: inset(25% 0 58% 0);
+                transform: translate(3px, -1px);
+            }
+
+            80% {
+                clip-path: inset(54% 0 7% 0);
+                transform: translate(-3px, 2px);
+            }
+
+            100% {
+                clip-path: inset(58% 0 43% 0);
+                transform: translate(0);
+            }
         }
 
         @keyframes glitch-2 {
-            0% { clip-path: inset(65% 0 13% 0); transform: translate(2px, 1px); }
-            20% { clip-path: inset(15% 0 62% 0); transform: translate(-1px, -2px); }
-            40% { clip-path: inset(82% 0 2% 0); transform: translate(1px, -3px); }
-            60% { clip-path: inset(33% 0 48% 0); transform: translate(-3px, 1px); }
-            80% { clip-path: inset(1% 0 86% 0); transform: translate(3px, -2px); }
-            100% { clip-path: inset(12% 0 64% 0); transform: translate(0); }
+            0% {
+                clip-path: inset(65% 0 13% 0);
+                transform: translate(2px, 1px);
+            }
+
+            20% {
+                clip-path: inset(15% 0 62% 0);
+                transform: translate(-1px, -2px);
+            }
+
+            40% {
+                clip-path: inset(82% 0 2% 0);
+                transform: translate(1px, -3px);
+            }
+
+            60% {
+                clip-path: inset(33% 0 48% 0);
+                transform: translate(-3px, 1px);
+            }
+
+            80% {
+                clip-path: inset(1% 0 86% 0);
+                transform: translate(3px, -2px);
+            }
+
+            100% {
+                clip-path: inset(12% 0 64% 0);
+                transform: translate(0);
+            }
         }
 
         /* ═══════════════════════════════════════
@@ -1562,8 +1679,15 @@
         }
 
         @keyframes cursorBlink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
         }
 
         /* ═══════════════════════════════════════
@@ -1593,7 +1717,9 @@
             transition: opacity 0.5s ease;
         }
 
-        .cursor-glow.active { opacity: 1; }
+        .cursor-glow.active {
+            opacity: 1;
+        }
 
         .cursor-dot {
             position: fixed;
@@ -1629,11 +1755,30 @@
         }
 
         @keyframes runeFloat {
-            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            50% { transform: translateY(-200px) rotate(180deg); opacity: 0.6; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-400px) rotate(360deg); opacity: 0; }
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            50% {
+                transform: translateY(-200px) rotate(180deg);
+                opacity: 0.6;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-400px) rotate(360deg);
+                opacity: 0;
+            }
         }
 
         /* ═══════════════════════════════════════
@@ -1662,7 +1807,7 @@
             opacity: 0;
             transition: opacity 0.5s;
             background: radial-gradient(circle at var(--glow-x, 50%) var(--glow-y, 50%),
-                rgba(220, 38, 38, 0.08) 0%, transparent 60%);
+                    rgba(220, 38, 38, 0.08) 0%, transparent 60%);
         }
 
         .skill-card:hover .card-glow,
@@ -1678,8 +1823,15 @@
         }
 
         @keyframes statusPulse {
-            0%, 100% { box-shadow: 0 0 4px var(--crimson); }
-            50% { box-shadow: 0 0 12px var(--crimson), 0 0 24px var(--crimson-glow); }
+
+            0%,
+            100% {
+                box-shadow: 0 0 4px var(--crimson);
+            }
+
+            50% {
+                box-shadow: 0 0 12px var(--crimson), 0 0 24px var(--crimson-glow);
+            }
         }
 
         /* ═══════════════════════════════════════
@@ -1690,11 +1842,25 @@
         }
 
         @keyframes iconPulse {
-            0% { transform: scale(1) rotate(0deg); }
-            25% { transform: scale(1.15) rotate(-5deg); }
-            50% { transform: scale(1.05) rotate(3deg); }
-            75% { transform: scale(1.12) rotate(-2deg); }
-            100% { transform: scale(1) rotate(0deg); }
+            0% {
+                transform: scale(1) rotate(0deg);
+            }
+
+            25% {
+                transform: scale(1.15) rotate(-5deg);
+            }
+
+            50% {
+                transform: scale(1.05) rotate(3deg);
+            }
+
+            75% {
+                transform: scale(1.12) rotate(-2deg);
+            }
+
+            100% {
+                transform: scale(1) rotate(0deg);
+            }
         }
 
         /* ═══════════════════════════════════════
@@ -1714,7 +1880,10 @@
         }
 
         @keyframes rippleAnim {
-            to { transform: scale(4); opacity: 0; }
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
         }
 
         /* ═══════════════════════════════════════
@@ -1785,8 +1954,13 @@
                 backdrop-filter: blur(30px);
             }
 
-            .nav-menu.active { display: flex; }
-            .nav-toggle { display: block; }
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
 
             .hero-split {
                 grid-template-columns: 1fr;
@@ -1830,8 +2004,13 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .section { padding: 4rem 1.5rem; }
-            .section-title { font-size: 1.8rem; }
+            .section {
+                padding: 4rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
 
             .skills-grid {
                 grid-template-columns: 1fr;
@@ -1889,21 +2068,27 @@
         }
 
         @media (max-width: 480px) {
-            .hero-name { font-size: 2rem; }
+            .hero-name {
+                font-size: 2rem;
+            }
 
             .hero-ornament {
                 font-size: 0.75rem;
                 letter-spacing: 3px;
             }
 
-            .hero-ornament span { width: 20px; }
+            .hero-ornament span {
+                width: 20px;
+            }
 
             .hero-about-stats {
                 grid-template-columns: 1fr 1fr;
                 gap: 0.75rem;
             }
 
-            .nav-inner { padding: 0 1.25rem; }
+            .nav-inner {
+                padding: 0 1.25rem;
+            }
         }
 
         /* ═══════════════════════════════════════
@@ -1939,8 +2124,8 @@
             max-height: 85vh;
             background: var(--bg-card);
             border: 1px solid var(--border-metallic);
-            box-shadow: 
-                0 30px 100px rgba(0, 0, 0, 0.8), 
+            box-shadow:
+                0 30px 100px rgba(0, 0, 0, 0.8),
                 0 0 50px rgba(220, 38, 38, 0.15);
             transform: translateY(100px) scale(0.95);
             transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -1971,8 +2156,20 @@
             z-index: 10;
             pointer-events: none;
         }
-        .pdf-modal::before { top: -1px; left: -1px; border-top: 2px solid; border-left: 2px solid; }
-        .pdf-modal::after { bottom: -1px; right: -1px; border-bottom: 2px solid; border-right: 2px solid; }
+
+        .pdf-modal::before {
+            top: -1px;
+            left: -1px;
+            border-top: 2px solid;
+            border-left: 2px solid;
+        }
+
+        .pdf-modal::after {
+            bottom: -1px;
+            right: -1px;
+            border-bottom: 2px solid;
+            border-right: 2px solid;
+        }
 
         .pdf-modal-header {
             display: flex;
@@ -1996,7 +2193,10 @@
             gap: 1rem;
         }
 
-        .pdf-modal-title i { color: var(--crimson-light); font-size: 1.1rem; }
+        .pdf-modal-title i {
+            color: var(--crimson-light);
+            font-size: 1.1rem;
+        }
 
         .pdf-modal-close {
             background: rgba(255, 255, 255, 0.03);
@@ -2011,7 +2211,8 @@
             font-size: 1.2rem;
             transition: all 0.3s ease;
             border-radius: 4px;
-            z-index: 20; /* Ensure it stays above corners */
+            z-index: 20;
+            /* Ensure it stays above corners */
             position: relative;
         }
 
@@ -2045,15 +2246,23 @@
             max-height: 75vh;
             object-fit: contain;
             display: none;
-            box-shadow: 0 0 40px rgba(0,0,0,0.5);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
         }
 
         /* Show active content */
-        .pdf-modal-body.show-pdf iframe { display: block; }
-        .pdf-modal-body.show-img img { display: block; }
+        .pdf-modal-body.show-pdf iframe {
+            display: block;
+        }
+
+        .pdf-modal-body.show-img img {
+            display: block;
+        }
 
         /* Clickable cert card indicator */
-        .cert-clickable { cursor: pointer; }
+        .cert-clickable {
+            cursor: pointer;
+        }
+
         .cert-clickable .cert-view-label {
             display: flex;
             align-items: center;
@@ -2076,12 +2285,23 @@
         }
 
         @media (max-width: 768px) {
-            .pdf-modal { width: 95%; max-height: 80vh; }
-            .pdf-modal-header { padding: 1rem 1.5rem; }
-            .pdf-modal-title { font-size: 0.65rem; letter-spacing: 2px; }
+            .pdf-modal {
+                width: 95%;
+                max-height: 80vh;
+            }
+
+            .pdf-modal-header {
+                padding: 1rem 1.5rem;
+            }
+
+            .pdf-modal-title {
+                font-size: 0.65rem;
+                letter-spacing: 2px;
+            }
         }
     </style>
 </head>
+
 <body>
     <!-- Atmospheric layers -->
     <div class="fog-layer"></div>
@@ -2097,10 +2317,10 @@
             <a href="#" class="nav-brand">Văn Minh</a>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#home" class="active">Home</a></li>
-                <li><a href="#skills">Arsenal</a></li>
+                <li><a href="#skills">Skills</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#certifications">Certs</a></li>
-                <li><a href="#contact">Summon</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
             <button class="nav-toggle" id="navToggle" aria-label="Menu">
                 <i class="fas fa-bars"></i>
@@ -2116,14 +2336,14 @@
                     <img src="profile.jpg" alt="Minh Văn" />
                 </div>
                 <div class="hero-ornament">
-                    <span></span> Forged in the Digital Abyss <span></span>
+                    <span></span> Engineering Scalable IT Infrastructure <span></span>
                 </div>
                 <h1 class="hero-name glitch" data-text="Văn Minh">Văn Minh</h1>
                 <p class="hero-title">IT Infrastructure &nbsp;&&nbsp; Operations</p>
                 <p class="hero-tagline" id="heroTagline"></p>
                 <div class="hero-actions">
                     <a href="#experience" class="btn btn-crimson">
-                        <i class="fas fa-scroll"></i> View Experience
+                        <i class="fas fa-briefcase"></i> View Career History
                     </a>
                     <a href="minh-van-cv.pdf" class="btn btn-ghost" download>
                         <i class="fas fa-download"></i> Download CV
@@ -2132,13 +2352,14 @@
             </div>
 
             <div class="hero-about" id="about">
-                <div class="hero-about-label">The Operator</div>
+                <div class="hero-about-label">Professional Profile</div>
                 <div class="hero-about-text">
                     A dedicated <span class="about-highlight">Electronics and Telecommunications</span> graduate with
                     <span class="about-highlight">2 years of experience</span> in IT Infrastructure & Operations —
                     providing technical support, managing firewalls, switches, access points, and VoIP systems across
                     <span class="about-gold">Vietnam and Cambodia</span>.
-                    Committed to keeping abreast of <span class="about-highlight">emerging technologies and industry trends</span> to improve project performance and efficiency.
+                    Committed to keeping abreast of <span class="about-highlight">emerging technologies and industry
+                        trends</span> to improve project performance and efficiency.
                 </div>
                 <div class="hero-about-stats">
                     <div class="hero-about-stat">
@@ -2172,9 +2393,10 @@
     <section class="section skills-section" id="skills">
         <div class="section-inner">
             <div class="section-header reveal">
-                <span class="section-label">The Arsenal</span>
-                <h2 class="section-title">Weapons of Choice</h2>
-                <p class="section-subtitle">Every tool mastered, every system conquered — forged through years of relentless infrastructure warfare.</p>
+                <span class="section-label">Technical Expertise</span>
+                <h2 class="section-title">Technology Stack</h2>
+                <p class="section-subtitle">Expertise in system administration, network engineering, and information
+                    security developed through years of enterprise-level infrastructure management.</p>
             </div>
 
             <div class="skills-grid">
@@ -2249,8 +2471,9 @@
         <div class="section-inner">
             <div class="section-header reveal">
                 <span class="section-label">Career Journey</span>
-                <h2 class="section-title">Work Experience</h2>
-                <p class="section-subtitle">From junior roles to senior infrastructure challenges — a progression through IT operations and systems management.</p>
+                <h2 class="section-title">Professional Experience</h2>
+                <p class="section-subtitle">A progression through IT operations and systems management, delivering
+                    technical solutions for complex infrastructure challenges.</p>
             </div>
 
             <div class="experience-timeline">
@@ -2259,7 +2482,10 @@
                         <div class="experience-date">06/2024 – 02/2026</div>
                         <div class="experience-title">IT Infrastructure & Operations Specialist</div>
                         <div class="experience-company">Magna Management Asia</div>
-                        <div class="experience-description">Led technical infrastructure across Vietnam and Cambodia operations. Managed network deployment, device management, and IT procurement for retail and office environments. Supported store openings, system upgrades, and enterprise-scale IT initiatives.</div>
+                        <div class="experience-description">Led technical infrastructure across Vietnam and Cambodia
+                            operations. Managed network deployment, device management, and IT procurement for retail and
+                            office environments. Supported store openings, system upgrades, and enterprise-scale IT
+                            initiatives.</div>
                         <div class="experience-tags">
                             <span class="experience-tag">SD-WAN</span>
                             <span class="experience-tag">Intune</span>
@@ -2275,7 +2501,10 @@
                         <div class="experience-date">Key Responsibilities</div>
                         <div class="experience-title">Daily Operations</div>
                         <div class="experience-company">Technical Support & Troubleshooting</div>
-                        <div class="experience-description">Provided comprehensive technical support for store users, office staff, warehouse teams, and management. Managed firewall, switches, access points, VoIP systems. Troubleshot connectivity issues, hardware failures, and application problems.</div>
+                        <div class="experience-description">Provided comprehensive technical support for store users,
+                            office staff, warehouse teams, and management. Managed firewall, switches, access points,
+                            VoIP systems. Troubleshot connectivity issues, hardware failures, and application problems.
+                        </div>
                         <div class="experience-tags">
                             <span class="experience-tag">Technical Support</span>
                             <span class="experience-tag">Firewall Management</span>
@@ -2290,7 +2519,10 @@
                         <div class="experience-date">Major Projects</div>
                         <div class="experience-title">Infrastructure Deployment</div>
                         <div class="experience-company">SD-WAN & Device Management</div>
-                        <div class="experience-description">Rolled out SD-WAN solutions across store networks. Deployed Microsoft Intune for enterprise device management. Implemented TeamViewer Tensor for remote support. Packaged and deployed applications via Intune & SCCM. Coordinated SAP version upgrade from 7.30 to 8.00.</div>
+                        <div class="experience-description">Rolled out SD-WAN solutions across store networks. Deployed
+                            Microsoft Intune for enterprise device management. Implemented TeamViewer Tensor for remote
+                            support. Packaged and deployed applications via Intune & SCCM. Coordinated SAP version
+                            upgrade from 7.30 to 8.00.</div>
                         <div class="experience-tags">
                             <span class="experience-tag">SD-WAN Deployment</span>
                             <span class="experience-tag">Microsoft Intune</span>
@@ -2306,7 +2538,10 @@
                         <div class="experience-date">Strategic Initiatives</div>
                         <div class="experience-title">Store Operations & Vendor Management</div>
                         <div class="experience-company">Business Support Services</div>
-                        <div class="experience-description">Prepared IT infrastructure for new store openings and renovations. Installed and configured POS systems and networking equipment. Provided on-site support during store launches and major sales events. Managed IT procurement, vendor coordination, and service renewals across multiple countries.</div>
+                        <div class="experience-description">Prepared IT infrastructure for new store openings and
+                            renovations. Installed and configured POS systems and networking equipment. Provided on-site
+                            support during store launches and major sales events. Managed IT procurement, vendor
+                            coordination, and service renewals across multiple countries.</div>
                         <div class="experience-tags">
                             <span class="experience-tag">POS Systems</span>
                             <span class="experience-tag">Store Launch</span>
@@ -2328,11 +2563,12 @@
             <div class="section-header reveal">
                 <span class="section-label">Foundation</span>
                 <h2 class="section-title">Education</h2>
-                <p class="section-subtitle">The academic forge where knowledge was tempered.</p>
+                <p class="section-subtitle">Academic background in electronics and telecommunications.</p>
             </div>
 
             <div class="projects-grid">
-                <div class="project-card reveal reveal-delay-1" style="grid-column: 1 / -1; max-width: 700px; margin: 0 auto;">
+                <div class="project-card reveal reveal-delay-1"
+                    style="grid-column: 1 / -1; max-width: 700px; margin: 0 auto;">
                     <div class="card-glow"></div>
                     <div class="project-number">🎓</div>
                     <div class="project-status">2019 – 2024</div>
@@ -2353,38 +2589,45 @@
     <section class="section skills-section" id="certifications">
         <div class="section-inner">
             <div class="section-header reveal">
-                <span class="section-label">Proof of Mastery</span>
+                <span class="section-label">Professional Validations</span>
                 <h2 class="section-title">Certifications</h2>
-                <p class="section-subtitle">Credentials earned through discipline, study, and relentless pursuit of knowledge.</p>
+                <p class="section-subtitle">Industry-recognized credentials validating technical proficiency in
+                    networking, security, and cloud systems.</p>
             </div>
 
             <div class="projects-grid">
-                <div class="project-card reveal reveal-delay-1 cert-clickable" onclick="openPdfModal('Certificates/ccna.png', 'CCNA 200-301 Network Fundamentals')">
+                <div class="project-card reveal reveal-delay-1 cert-clickable"
+                    onclick="openPdfModal('Certificates/ccna.png', 'CCNA 200-301 Network Fundamentals')">
                     <div class="card-glow"></div>
                     <div class="project-number">I</div>
                     <div class="project-status">2024</div>
                     <h3>CCNA 200-301 Network Fundamentals</h3>
-                    <p>Simplilearn — Cisco Certified Network Associate covering network fundamentals, IP connectivity, security, and automation.</p>
+                    <p>Simplilearn — Cisco Certified Network Associate covering network fundamentals, IP connectivity,
+                        security, and automation.</p>
                     <div class="project-tags">
                         <span class="project-tag">Cisco</span>
                         <span class="project-tag">Networking</span>
                         <span class="project-tag">CCNA</span>
                     </div>
-                    <div class="cert-view-label"><i class="fas fa-file-image"></i> View Certificate <i class="fas fa-arrow-right"></i></div>
+                    <div class="cert-view-label"><i class="fas fa-file-image"></i> View Certificate <i
+                            class="fas fa-arrow-right"></i></div>
                 </div>
 
-                <div class="project-card reveal reveal-delay-2 cert-clickable" onclick="openPdfModal('Certificates/cissp.png', 'CISSP® – Certified Information Systems Security Professional')">
+                <div class="project-card reveal reveal-delay-2 cert-clickable"
+                    onclick="openPdfModal('Certificates/cissp.png', 'CISSP® – Certified Information Systems Security Professional')">
                     <div class="card-glow"></div>
                     <div class="project-number">II</div>
                     <div class="project-status">2024</div>
                     <h3>CISSP® – Certified Information Systems Security Professional</h3>
-                    <p>Simplilearn — Industry-leading cybersecurity certification covering security and risk management, asset security, and security operations.</p>
+                    <p>Simplilearn — Industry-leading cybersecurity certification covering security and risk management,
+                        asset security, and security operations.</p>
                     <div class="project-tags">
                         <span class="project-tag">CISSP</span>
                         <span class="project-tag">Security</span>
                         <span class="project-tag">InfoSec</span>
                     </div>
-                    <div class="cert-view-label"><i class="fas fa-file-image"></i> View Certificate <i class="fas fa-arrow-right"></i></div>
+                    <div class="cert-view-label"><i class="fas fa-file-image"></i> View Certificate <i
+                            class="fas fa-arrow-right"></i></div>
                 </div>
 
                 <div class="project-card reveal reveal-delay-1">
@@ -2392,7 +2635,8 @@
                     <div class="project-number">III</div>
                     <div class="project-status">2024</div>
                     <h3>Azure Fundamentals</h3>
-                    <p>Simplilearn — Microsoft Azure cloud fundamentals covering core Azure services, management tools, and cloud concepts.</p>
+                    <p>Simplilearn — Microsoft Azure cloud fundamentals covering core Azure services, management tools,
+                        and cloud concepts.</p>
                     <div class="project-tags">
                         <span class="project-tag">Azure</span>
                         <span class="project-tag">Cloud</span>
@@ -2405,7 +2649,8 @@
                     <div class="project-number">IV</div>
                     <div class="project-status">2024</div>
                     <h3>Google Cloud Certifications</h3>
-                    <p>Google — Modernize Infrastructure and Applications with Google Cloud & Trust and Security with Google Cloud.</p>
+                    <p>Google — Modernize Infrastructure and Applications with Google Cloud & Trust and Security with
+                        Google Cloud.</p>
                     <div class="project-tags">
                         <span class="project-tag">Google Cloud</span>
                         <span class="project-tag">Infrastructure</span>
@@ -2422,15 +2667,16 @@
     <section class="section" id="contact">
         <div class="section-inner">
             <div class="section-header reveal">
-                <span class="section-label">Summon Me</span>
-                <h2 class="section-title">Make Contact</h2>
-                <p class="section-subtitle">The signal is open. Reach out through the channels below.</p>
+                <span class="section-label">Contact Me</span>
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">Feel free to reach out for infrastructure projects or professional
+                    collaboration.</p>
             </div>
 
             <div class="contact-card reveal">
                 <p class="contact-intro">
-                    Whether you need IT infrastructure support, network management,
-                    or endpoint deployment — I'm ready for the next campaign.
+                    Providing comprehensive IT infrastructure solutions, network management, and enterprise endpoint
+                    deployment services.
                 </p>
 
                 <div class="contact-links">
@@ -2491,7 +2737,7 @@
     <footer class="footer">
         <div class="footer-ornament">◆</div>
         <div class="footer-line"></div>
-        <p>&copy; 2026 Văn Minh — Forged in the Digital Abyss</p>
+        <p>&copy; 2026 Văn Minh — IT Infrastructure & Operations Professional</p>
     </footer>
 
     <!-- ═══ SCRIPTS ═══ -->
@@ -2738,7 +2984,7 @@
         // BUTTON RIPPLE EFFECT
         // ═══════════════════════════════════════
         document.querySelectorAll('.btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
+            btn.addEventListener('click', function (e) {
                 const ripple = document.createElement('span');
                 ripple.className = 'ripple';
                 const rect = this.getBoundingClientRect();
@@ -2969,7 +3215,7 @@
 
         function openPdfModal(fileUrl, title) {
             console.log("Opening Modal for:", fileUrl);
-            
+
             const pdfOverlay = document.getElementById('pdfModalOverlay');
             const pdfFrame = document.getElementById('pdfModalFrame');
             const pdfImage = document.getElementById('pdfModalImage');
@@ -2977,12 +3223,12 @@
             const pdfTitle = document.getElementById('pdfModalTitle');
 
             if (!pdfOverlay || !pdfTitle) return;
-            
+
             pdfTitle.textContent = title;
-            
+
             // Check if it's a PDF or an Image
             const isPdf = fileUrl.toLowerCase().endsWith('.pdf');
-            
+
             if (isPdf) {
                 if (pdfFrame) pdfFrame.src = fileUrl;
                 if (pdfBody) {
@@ -2996,10 +3242,10 @@
                     pdfBody.classList.add('show-img');
                 }
             }
-            
+
             pdfOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
-            
+
             // Focus overlay to capture keyboard events
             setTimeout(() => {
                 pdfOverlay.setAttribute('tabindex', '0');
@@ -3015,17 +3261,17 @@
             if (!pdfOverlay) return;
             pdfOverlay.classList.remove('active');
             document.body.style.overflow = '';
-            
+
             // Cleanup sources after animation
-            setTimeout(() => { 
-                if (pdfFrame) pdfFrame.src = ''; 
-                if (pdfImage) pdfImage.src = ''; 
+            setTimeout(() => {
+                if (pdfFrame) pdfFrame.src = '';
+                if (pdfImage) pdfImage.src = '';
             }, 500);
         }
 
         // Modal cleanup
         if (typeof pdfClose !== 'undefined' && pdfClose) pdfClose.addEventListener('click', closePdfModal);
-        
+
         const overlayNode = document.getElementById('pdfModalOverlay');
         if (overlayNode) {
             overlayNode.addEventListener('click', (e) => {
@@ -3054,4 +3300,5 @@
 
     </script>
 </body>
+
 </html>
