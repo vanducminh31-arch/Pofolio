@@ -1942,15 +1942,21 @@
             box-shadow: 
                 0 30px 100px rgba(0, 0, 0, 0.8), 
                 0 0 50px rgba(220, 38, 38, 0.15);
-            transform: scale(0.92) translateY(40px);
-            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            transform: translateY(100px) scale(0.95);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            pointer-events: auto;
+        }
+
+        /* Initial hidden state for slide-up effect */
+        .pdf-modal-overlay:not(.active) .pdf-modal {
+            transform: translateY(100vh);
         }
 
         .pdf-modal-overlay.active .pdf-modal {
-            transform: scale(1) translateY(0);
+            transform: translateY(0) scale(1);
         }
 
         /* Glowing border accents for modal */
@@ -2991,6 +2997,12 @@
             
             pdfOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
+            
+            // Focus overlay to capture keyboard events
+            setTimeout(() => {
+                pdfOverlay.setAttribute('tabindex', '0');
+                pdfOverlay.focus();
+            }, 100);
         }
 
         function closePdfModal() {
@@ -3009,32 +3021,36 @@
             }, 500);
         }
 
-        const pdfOverlay = document.getElementById('pdfModalOverlay');
         const pdfClose = document.getElementById('pdfModalClose');
 
         if (pdfClose) pdfClose.addEventListener('click', closePdfModal);
 
-        if (pdfOverlay) {
-            pdfOverlay.addEventListener('click', (e) => {
-                if (e.target === pdfOverlay) closePdfModal();
+        const pdfOverlayForClick = document.getElementById('pdfModalOverlay');
+        if (pdfOverlayForClick) {
+            pdfOverlayForClick.addEventListener('click', (e) => {
+                if (e.target === pdfOverlayForClick) closePdfModal();
             });
         }
 
-        document.addEventListener('keydown', (e) => {
+        // Robust global shortcut listener
+        window.addEventListener('keydown', (e) => {
             const currentOverlay = document.getElementById('pdfModalOverlay');
-            const isModalActive = currentOverlay && currentOverlay.classList.contains('active');
-
-            // Close modal with Esc, Backspace, X, or Q
-            if (isModalActive) {
-                if (e.key === 'Escape' || e.key === 'Backspace' || e.key.toLowerCase() === 'x' || e.key.toLowerCase() === 'q') {
-                    closePdfModal();
+            if (!currentOverlay || !currentOverlay.classList.contains('active')) {
+                // Global shortcuts when modal is NOT active
+                if (e.key === 'Home') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
-            } 
-            // Scroll to top with Home key when modal is not active
-            else if (e.key === 'Home') {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
             }
-        });
+
+            // Shortcuts when modal IS active
+            const closeKeys = ['Escape', 'Backspace', 'x', 'X', 'q', 'Q', 'c', 'C'];
+            if (closeKeys.includes(e.key)) {
+                e.preventDefault();
+                closePdfModal();
+            }
+        }, true); // Use capture phase to ensure we catch it before iframe potentially swallows it
+
     </script>
 </body>
 </html>
