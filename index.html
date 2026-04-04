@@ -2643,7 +2643,7 @@
         // Create particles
         for (let i = 0; i < 60; i++) {
             const ember = new Ember();
-            ember.y = Math.random() * canvas.height; // spread initial positions
+            ember.y = Math.random() * canvas.height;
             embers.push(ember);
         }
 
@@ -2928,17 +2928,19 @@
         const pdfClose = document.getElementById('pdfModalClose');
 
         function openPdfModal(fileUrl, title) {
+            if (!pdfOverlay || !pdfTitle) return;
+            
             pdfTitle.textContent = title;
             
             // Check if it's a PDF or an Image
             const isPdf = fileUrl.toLowerCase().endsWith('.pdf');
             
             if (isPdf) {
-                pdfFrame.src = fileUrl;
+                if (pdfFrame) pdfFrame.src = fileUrl;
                 pdfBody.classList.remove('show-img');
                 pdfBody.classList.add('show-pdf');
             } else {
-                pdfImage.src = fileUrl;
+                if (pdfImage) pdfImage.src = fileUrl;
                 pdfBody.classList.remove('show-pdf');
                 pdfBody.classList.add('show-img');
             }
@@ -2948,24 +2950,27 @@
         }
 
         function closePdfModal() {
+            if (!pdfOverlay) return;
             pdfOverlay.classList.remove('active');
             document.body.style.overflow = '';
             
             // Cleanup sources after animation
             setTimeout(() => { 
-                pdfFrame.src = ''; 
-                pdfImage.src = ''; 
+                if (pdfFrame) pdfFrame.src = ''; 
+                if (pdfImage) pdfImage.src = ''; 
             }, 500);
         }
 
-        pdfClose.addEventListener('click', closePdfModal);
+        if (pdfClose) pdfClose.addEventListener('click', closePdfModal);
 
-        pdfOverlay.addEventListener('click', (e) => {
-            if (e.target === pdfOverlay) closePdfModal();
-        });
+        if (pdfOverlay) {
+            pdfOverlay.addEventListener('click', (e) => {
+                if (e.target === pdfOverlay) closePdfModal();
+            });
+        }
 
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && pdfOverlay.classList.contains('active')) {
+            if (e.key === 'Escape' && pdfOverlay && pdfOverlay.classList.contains('active')) {
                 closePdfModal();
             }
         });
