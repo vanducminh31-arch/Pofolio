@@ -2228,10 +2228,12 @@
             flex: 1;
             overflow: auto;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             background: #050505;
             position: relative;
+            padding: 2rem;
         }
 
         .pdf-modal-body iframe {
@@ -2243,10 +2245,14 @@
 
         .pdf-modal-body img {
             max-width: 100%;
-            max-height: 75vh;
+            margin-bottom: 2rem;
             object-fit: contain;
             display: none;
             box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .pdf-modal-body img:last-child {
+            margin-bottom: 0;
         }
 
         /* Show active content */
@@ -2656,6 +2662,20 @@
                         <span class="project-tag">Infrastructure</span>
                         <span class="project-tag">Security</span>
                     </div>
+                <div class="project-card reveal reveal-delay-2 cert-clickable"
+                    onclick="openPdfModal(['Certificates/SD wan fg.png', 'Certificates/SD wan.png'], 'SD-WAN Deployment Certification')">
+                    <div class="card-glow"></div>
+                    <div class="project-number">V</div>
+                    <div class="project-status">2024</div>
+                    <h3>SD-WAN Deployment Certification</h3>
+                    <p>Comprehensive certification for SD-WAN infrastructure, management, and deployment strategies across enterprise networks.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">SD-WAN</span>
+                        <span class="project-tag">Networking</span>
+                        <span class="project-tag">Infrastructure</span>
+                    </div>
+                    <div class="cert-view-label"><i class="fas fa-file-image"></i> View Certificate <i
+                            class="fas fa-arrow-right"></i></div>
                 </div>
             </div>
         </div>
@@ -3226,20 +3246,46 @@
 
             pdfTitle.textContent = title;
 
-            // Check if it's a PDF or an Image
-            const isPdf = fileUrl.toLowerCase().endsWith('.pdf');
+            // Clear previous dynamic images
+            const dynamicImages = pdfBody.querySelectorAll('.dynamic-cert-img');
+            dynamicImages.forEach(img => img.remove());
 
-            if (isPdf) {
-                if (pdfFrame) pdfFrame.src = fileUrl;
-                if (pdfBody) {
-                    pdfBody.classList.remove('show-img');
-                    pdfBody.classList.add('show-pdf');
-                }
-            } else {
-                if (pdfImage) pdfImage.src = fileUrl;
+            // Handle multiple files (Array)
+            if (Array.isArray(fileUrl)) {
+                if (pdfFrame) pdfFrame.src = '';
+                if (pdfImage) pdfImage.style.display = 'none';
                 if (pdfBody) {
                     pdfBody.classList.remove('show-pdf');
                     pdfBody.classList.add('show-img');
+
+                    fileUrl.forEach(url => {
+                        const newImg = document.createElement('img');
+                        newImg.src = url;
+                        newImg.className = 'dynamic-cert-img';
+                        newImg.alt = 'Certificate Image';
+                        newImg.style.display = 'block';
+                        pdfBody.appendChild(newImg);
+                    });
+                }
+            } else {
+                // Existing single file logic
+                const isPdf = fileUrl.toLowerCase().endsWith('.pdf');
+
+                if (isPdf) {
+                    if (pdfFrame) pdfFrame.src = fileUrl;
+                    if (pdfBody) {
+                        pdfBody.classList.remove('show-img');
+                        pdfBody.classList.add('show-pdf');
+                    }
+                } else {
+                    if (pdfImage) {
+                        pdfImage.src = fileUrl;
+                        pdfImage.style.display = 'block';
+                    }
+                    if (pdfBody) {
+                        pdfBody.classList.remove('show-pdf');
+                        pdfBody.classList.add('show-img');
+                    }
                 }
             }
 
@@ -3257,15 +3303,24 @@
             const pdfOverlay = document.getElementById('pdfModalOverlay');
             const pdfFrame = document.getElementById('pdfModalFrame');
             const pdfImage = document.getElementById('pdfModalImage');
+            const pdfBody = document.getElementById('pdfModalBody');
 
             if (!pdfOverlay) return;
             pdfOverlay.classList.remove('active');
             document.body.style.overflow = '';
 
-            // Cleanup sources after animation
+            // Cleanup sources and dynamic content after animation
             setTimeout(() => {
                 if (pdfFrame) pdfFrame.src = '';
-                if (pdfImage) pdfImage.src = '';
+                if (pdfImage) {
+                    pdfImage.src = '';
+                    pdfImage.style.display = 'none';
+                }
+                if (pdfBody) {
+                    const dynamicImages = pdfBody.querySelectorAll('.dynamic-cert-img');
+                    dynamicImages.forEach(img => img.remove());
+                    pdfBody.classList.remove('show-img', 'show-pdf');
+                }
             }, 500);
         }
 
